@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>For You — A Little Heart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#ff6b81;
+      --muted:#9aa4b2;
+      --glass: rgba(255,255,255,0.04);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(ellipse at 10% 0%, #071428 0%, var(--bg) 40%, #04070a 100%);color:#e6eef8}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:32px}
+    .card{
+      width:880px;max-width:94vw;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:18px;padding:28px;box-shadow:0 10px 40px rgba(2,6,23,0.6);display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:center
+    }
+    @media (max-width:880px){.card{grid-template-columns:1fr}}
+    .left{padding:18px}
+    h1{font-family:'Great Vibes',cursive;font-size:48px;margin:6px 0;color:var(--accent);letter-spacing:0.5px}
+    p.lead{color:var(--muted);margin:10px 0 18px;font-size:15px}
+
+    /* Heart */
+    .heart-wrap{display:flex;align-items:center;gap:16px}
+    .heart{
+      width:160px;height:160px;background:linear-gradient(180deg,#ff7b98,#ff3b7a);border-radius:50%;position:relative;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 12px 30px rgba(255,107,129,0.14), inset 0 -6px 18px rgba(0,0,0,0.12);
+    }
+    .heart:before,.heart:after{content:"";position:absolute;width:160px;height:160px;background:linear-gradient(180deg,#ff7b98,#ff3b7a);border-radius:50%}
+    .heart:before{top:-50%;left:0}
+    .heart:after{left:50%;top:0}
+    .heart-inner{transform:rotate(45deg);width:82%;height:82%;display:flex;align-items:center;justify-content:center}
+    .pulse{animation:pulse 1.4s ease-in-out infinite}
+    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+
+    /* Message box */
+    .msg{background:var(--glass);border-radius:12px;padding:18px;color:#eaf2ff;box-shadow:0 6px 18px rgba(3,7,15,0.6)}
+    .msg h3{margin:0 0 8px;font-size:18px}
+    .msg p{margin:0;color:var(--muted);line-height:1.5}
+
+    /* Buttons */
+    .controls{display:flex;gap:12px;margin-top:14px}
+    button{padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+    .btn-primary{background:linear-gradient(90deg,#ff8aa4,#ff4a7f);color:white}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    /* Right side */
+    .right{display:flex;flex-direction:column;align-items:center;gap:14px;padding:22px}
+    .note{font-size:14px;color:var(--muted);text-align:center}
+    .reveal{margin-top:6px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;width:100%;min-height:120px;display:flex;align-items:center;justify-content:center;flex-direction:column}
+    .reveal p{margin:0;text-align:center}
+
+    footer.small{font-size:12px;color:var(--muted);text-align:center;margin-top:12px}
+
+    /* Confetti */
+    .confetti{position:absolute;inset:0;pointer-events:none}
+
+    /* tiny sparkle */
+    .sparkle{position:absolute;filter:blur(.4px);opacity:0.9}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="left">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(180deg,#0b1220,#081018);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);font-size:18px">💌</div>
+          <div>
+            <h1>For you</h1>
+            <div class="note">A tiny something I made to say — I'm sorry, I love you, and I miss our peace.</div>
+          </div>
+        </div>
+
+        <div style="height:20px"></div>
+
+        <div class="heart-wrap">
+          <div id="heart" class="heart pulse" title="Click me">
+            <div class="heart-inner">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" style="transform:rotate(-45deg)"><path d="M12 21s-7-4.35-9-7.25C-1.5 8 5 3 8.5 6.4 10.3 8 12 10 12 10s1.7-2 3.5-3.6C19 3 25.5 8 21 13.75 19 16.65 12 21 12 21z" fill="#fff" opacity="0.92"/></svg>
+            </div>
+          </div>
+
+          <div style="flex:1">
+            <div class="msg">
+              <h3 id="title">Hey —</h3>
+              <p id="subtitle">I'm sorry. Click the heart when you're ready and watch what I made for you.</p>
+              <div class="controls">
+                <button id="apologizeBtn" class="btn-primary">Open & Apologize</button>
+                <button id="copyBtn" class="btn-ghost">Copy message</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+        <div class="note">Tip: Edit the names below directly in the code to personalize before sending.</div>
+      </div>
+
+      <div class="right">
+        <div class="reveal" id="reveal">
+          <p style="font-size:16px;color:var(--muted)">Click the heart or the <strong>Open & Apologize</strong> button to reveal the message.</p>
+        </div>
+        <div style="width:100%">
+          <div class="msg small" style="padding:12px;background:transparent;border-radius:10px">
+            <p class="small">Made with ❤️ by <strong>Shivansh</strong>. Customize the message and her name in the code before sending.</p>
+          </div>
+        </div>
+        <div class="confetti" id="confetti"></div>
+        <div class="sparkle" id="sparkle" style="left:20px;top:18px"></div>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+// ====== Personalize these two variables before you send ======
+const HER_NAME = 'Shreya'; // <- replace with her name, e.g. 'Aisha'
+const YOUR_NAME = 'Shivansh'; // <- your name (prefilled)
+// ===========================================================
+
+const heart = document.getElementById('heart');
+const reveal = document.getElementById('reveal');
+const title = document.getElementById('title');
+const subtitle = document.getElementById('subtitle');
+const apologizeBtn = document.getElementById('apologizeBtn');
+const copyBtn = document.getElementById('copyBtn');
+
+let opened = false;
+
+function confettiBurst(){
+  const parent = document.getElementById('confetti');
+  parent.innerHTML = '';
+  const colors = ['#ff6b81','#ffd166','#6be3ff','#a78bfa','#ff9bb3'];
+  const num = 48;
+  for(let i=0;i<num;i++){
+    const el = document.createElement('div');
+    el.style.position='absolute';
+    el.style.width='10px';el.style.height='14px';
+    el.style.left = (50 + (Math.random()-0.5)*80) + '%';
+    el.style.top = (20 + Math.random()*40) + '%';
+    el.style.opacity = Math.random()*0.9+0.6;
+    el.style.transform = `rotate(${Math.random()*360}deg)`;
+    el.style.background = colors[i%colors.length];
+    el.style.borderRadius = '2px';
+    el.style.animation = `fall ${2 + Math.random()*1.6}s linear forwards`;
+    el.style.pointerEvents='none';
+    el.style.zIndex=9999;
+    parent.appendChild(el);
+  }
+}
+
+// CSS keyframes injection for confetti
+const style = document.createElement('style');
+style.innerHTML = `@keyframes fall{0%{transform:translateY(-10vh) rotate(0)}100%{transform:translateY(90vh) rotate(360deg);opacity:0}}`;
+document.head.appendChild(style);
+
+function showMessage(){
+  if(opened) return;
+  opened = true;
+  heart.classList.remove('pulse');
+  heart.style.transform = 'scale(1.02) rotate(-45deg)';
+  confettiBurst();
+
+  title.innerText = `Dear ${HER_NAME},`;
+  subtitle.innerText = `I’m deeply sorry for the hurt I caused. I’ve been thinking about us and what matters most — you. I love you and I am committed to being kinder, listening better, and growing for us.`;
+
+  // typed reveal in the right panel
+  const lines = [
+    `Hey ${HER_NAME} —`,
+    `I’m sorry. I miss our peaceful mornings and your laugh.`,
+    `I broke something precious and I own it.`,
+    `If you can, give me one chance to make it right.`,
+    `Always, ${YOUR_NAME}`
+  ];
+
+  reveal.innerHTML = '';
+  let idx = 0;
+  function typeLine(){
+    if(idx >= lines.length) return;
+    const el = document.createElement('p');
+    el.style.fontSize='16px';
+    el.style.margin='8px 0';
+    reveal.appendChild(el);
+    let i = 0;
+    function step(){
+      if(i <= lines[idx].length){
+        el.innerText = lines[idx].slice(0,i);
+        i++;
+        setTimeout(step, 28);
+      } else {
+        idx++; setTimeout(typeLine, 240);
+      }
+    }
+    step();
+  }
+  typeLine();
+}
+
+heart.addEventListener('click', showMessage);
+apologizeBtn.addEventListener('click', showMessage);
+
+copyBtn.addEventListener('click', ()=>{
+  const text = `Hey ${HER_NAME}, I’m sorry — I miss you and I want to make things right. Can we talk? \n\n— ${YOUR_NAME}`;
+  navigator.clipboard.writeText(text).then(()=>{
+    copyBtn.innerText = 'Copied!';
+    setTimeout(()=>copyBtn.innerText='Copy message',1400);
+  }).catch(()=>{
+    copyBtn.innerText = 'Copy failed';
+    setTimeout(()=>copyBtn.innerText='Copy message',1400);
+  })
+});
+
+// tiny sparkle animation
+(function sparkle(){
+  const s = document.getElementById('sparkle');
+  s.innerHTML = '';
+  for(let i=0;i<8;i++){
+    const d = document.createElement('div');
+    d.style.width = (2 + Math.random()*4)+'px';
+    d.style.height = d.style.width;
+    d.style.background = '#fff';
+    d.style.opacity = Math.random();
+    d.style.position = 'absolute';
+    d.style.left = (Math.random()*86)+'%';
+    d.style.top = (Math.random()*86)+'%';
+    d.style.borderRadius='50%';
+    d.style.transform = `scale(${0.6+Math.random()})`;
+    d.style.animation = `spark ${4+Math.random()*6}s ease-in-out infinite`;
+    s.appendChild(d);
+  }
+  const st = document.createElement('style');
+  st.innerHTML = `@keyframes spark{0%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.4)}}`;
+  document.head.appendChild(st);
+})();
+
+</script>
+</body>
+</html>
